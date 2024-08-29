@@ -120,9 +120,13 @@ function App() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-5 w-full"
+          className="flex flex-col w-full "
         >
-          <div className="input-wrapper before:left-[1px] before:rounded-l before:content-['£']">
+          <div
+            className={`input-wrapper before:left-[1px] before:rounded-l before:content-['£'] ${
+              errors.mortgageAmount && "before:input-wrapper-before-error"
+            } `}
+          >
             <label htmlFor="mortgageAmount" className="form-label">
               Mortgage Amount
             </label>
@@ -130,18 +134,23 @@ function App() {
               id="mortgageAmount"
               type="float"
               {...register("mortgageAmount")}
-              className="form-input pl-14 "
+              className={` ${
+                errors.mortgageAmount &&
+                "border-red hover:border-red focus:border-red focus:ring-red"
+              } form-input pl-14   `}
             />
 
-            {errors.mortgageAmount && (
-              <span className="form-error">
-                {errors.mortgageAmount.message}
-              </span>
-            )}
+            <span className="form-error">
+              {errors.mortgageAmount && errors.mortgageAmount.message}
+            </span>
           </div>
 
           <div className="flex justify-between gap-5">
-            <div className="input-wrapper before:right-[1px] before:rounded-r before:content-['years'] before:px-3">
+            <div
+              className={`input-wrapper before:right-[1px] before:rounded-r before:content-['years'] before:px-3 ${
+                errors.mortgageTerm && "before:input-wrapper-before-error"
+              } `}
+            >
               <label htmlFor="mortgageTerm" className="form-label">
                 Mortgage Term
               </label>
@@ -149,17 +158,22 @@ function App() {
                 id="mortgageTerm"
                 type="number"
                 {...register("mortgageTerm")}
-                className="form-input pr-14 "
+                className={` ${
+                  errors.mortgageTerm &&
+                  "border-red hover:border-red focus:border-red focus:ring-red"
+                } form-input pr-14   `}
               />
 
-              {errors.mortgageTerm && (
-                <span className="form-error">
-                  {errors.mortgageTerm.message}
-                </span>
-              )}
+              <span className="form-error">
+                {errors.mortgageTerm && errors.mortgageTerm.message}
+              </span>
             </div>
 
-            <div className="input-wrapper before:right-[1px] before:rounded-r before:content-['%']">
+            <div
+              className={`input-wrapper before:right-[1px] before:rounded-r before:content-['%'] ${
+                errors.interestRate && "before:input-wrapper-before-error"
+              } `}
+            >
               <label htmlFor="interestRate" className="form-label">
                 Interest Rate
               </label>
@@ -167,14 +181,15 @@ function App() {
                 id="interestRate"
                 type="float"
                 {...register("interestRate")}
-                className="form-input pr-14"
+                className={` ${
+                  errors.interestRate &&
+                  "border-red hover:border-red focus:border-red focus:ring-red"
+                } form-input pr-14   `}
               />
 
-              {errors.interestRate && (
-                <span className="form-error">
-                  {errors.interestRate.message}
-                </span>
-              )}
+              <span className="form-error">
+                {errors.interestRate && errors.interestRate.message}
+              </span>
             </div>
           </div>
 
@@ -206,11 +221,15 @@ function App() {
               />
               Interest Only
             </label>
+
+            <span className="form-error">
+              {errors.mortgageType && errors.mortgageType.message}
+            </span>
           </div>
 
           <button
             type="submit"
-            className="mt-5 bg-lime transition-all hover:bg-lime/80 rounded-full flex justify-center items-center gap-[10px] py-4 px-6 font-bold min-w-11"
+            className="bg-lime transition-all hover:bg-lime/80 rounded-full flex justify-center items-center gap-[10px] py-4 px-6 font-bold min-w-11"
           >
             <img src={calculatorIcon} alt="" />
             Calculate Repayments

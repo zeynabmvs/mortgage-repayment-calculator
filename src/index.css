@@ -24,7 +24,7 @@ input[type="number"] {
   }
 
   .form-label {
-    @apply block text-slate-700 text-fluid-xs mb-[10px];
+    @apply block text-slate-700 text-fluid-sm mb-[10px];
   }
 
   .option-label {
@@ -41,6 +41,10 @@ input[type="number"] {
   }
 
   .form-error {
-    @apply text-red text-fluid-xs mt-[10px];
+    @apply text-red text-fluid-xs block h-5 mb-[10px];
+  }
+
+  .input-wrapper-before-error {
+    @apply bg-red text-white;
   }
 }
