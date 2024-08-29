@@ -14,17 +14,32 @@ input[type="number"] {
 }
 
 @layer components {
+  .input-wrapper {
+    @apply relative;
+  }
+
   .form-input {
-    @apply relative border border-slate-300 rounded p-[14px] pl-14 w-full transition-all outline-offset-0 text-sm hover:border-lime;
+    @apply border border-slate-300 rounded p-[14px] w-full transition-all outline-offset-0 text-sm hover:border-lime;
   }
+
   .form-label {
-    @apply block text-slate-500 text-fluid-sm mb-3;
+    @apply block text-slate-700 text-fluid-xs mb-[10px];
   }
+
   .option-label {
-    @apply border border-slate-300 p-4 flex items-center gap-5 transition-all text-slate-700 font-bold rounded has-[:checked]:bg-lime/30 has-[:checked]:border-lime hover:border-lime;
+    @apply text-base border border-slate-300 p-3 flex items-center gap-5 transition-all text-slate-700 font-bold rounded has-[:checked]:bg-lime/30 has-[:checked]:border-lime hover:border-lime;
   }
+
   .form-radio {
     @apply box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white
      bg-clip-padding outline-none ring-1 ring-slate-700 checked:border-lime checked:ring-lime;
+  }
+
+  .input-wrapper::before {
+    @apply absolute bg-slate-100 min-w-[44px] h-[48px] top-[35px] bottom-0 text-base text-slate-700 flex justify-center items-center;
+  }
+
+  .form-error {
+    @apply text-red text-fluid-xs mt-[10px];
   }
 }

@@ -85,6 +85,9 @@ function App() {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      mortgageType: "repayment",
+    },
   });
 
   const [results, setResults] = useState({
@@ -106,12 +109,12 @@ function App() {
   return (
     <div className="w-full lg:w-[1000px] bg-white md:rounded-3xl h-full md:h-[580px] flex flex-col md:flex-row">
       {/* Calculator */}
-      <div className="basis-1/2 text-slate-900 flex flex-col px-5 py-7 md:p-11 items-start">
+      <div className="basis-1/2 flex flex-col px-5 py-7 md:p-11 items-start">
         <div className="w-full flex justify-between mb-8">
           <h1 className="font-bold text-fluid-xl">Mortgage Calculator</h1>
           <button
             onClick={() => clearForm()}
-            className="text-slate-500 hover:text-slate-700 transition-colors underline underline-offset-1"
+            className="text-slate-500 hover:text-slate-700 transition-colors underline underline-offset-1 text-fluid-sm"
           >
             Clear all
           </button>
@@ -121,7 +124,7 @@ function App() {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-5 w-full"
         >
-          <div>
+          <div className="input-wrapper before:left-[1px] before:rounded-l before:content-['£']">
             <label htmlFor="mortgageAmount" className="form-label">
               Mortgage Amount
             </label>
@@ -129,50 +132,52 @@ function App() {
               id="mortgageAmount"
               type="float"
               {...register("mortgageAmount")}
-              className="form-input"
+              className="form-input pl-14 "
             />
 
             {errors.mortgageAmount && (
-              <span className="text-red text-xs mt-[10px]">
+              <span className="form-error">
                 {errors.mortgageAmount.message}
               </span>
             )}
           </div>
 
-          <div>
-            <label htmlFor="mortgageTerm" className="form-label">
-              Mortgage Term
-            </label>
-            <input
-              id="mortgageTerm"
-              type="number"
-              {...register("mortgageTerm")}
-              className="form-input"
-            />
+          <div className="flex justify-between gap-5">
+            <div className="input-wrapper before:right-[1px] before:rounded-r before:content-['years'] before:px-3">
+              <label htmlFor="mortgageTerm" className="form-label">
+                Mortgage Term
+              </label>
+              <input
+                id="mortgageTerm"
+                type="number"
+                {...register("mortgageTerm")}
+                className="form-input pr-14 "
+              />
 
-            {errors.mortgageTerm && (
-              <span className="text-red text-xs mt-[10px]">
-                {errors.mortgageTerm.message}
-              </span>
-            )}
-          </div>
+              {errors.mortgageTerm && (
+                <span className="form-error">
+                  {errors.mortgageTerm.message}
+                </span>
+              )}
+            </div>
 
-          <div>
-            <label htmlFor="interestRate" className="form-label">
-              Interest Rate
-            </label>
-            <input
-              id="interestRate"
-              type="float"
-              {...register("interestRate")}
-              className="form-input"
-            />
+            <div className="input-wrapper before:right-[1px] before:rounded-r before:content-['%']">
+              <label htmlFor="interestRate" className="form-label">
+                Interest Rate
+              </label>
+              <input
+                id="interestRate"
+                type="float"
+                {...register("interestRate")}
+                className="form-input pr-14"
+              />
 
-            {errors.interestRate && (
-              <span className="text-red text-xs mt-[10px]">
-                {errors.interestRate.message}
-              </span>
-            )}
+              {errors.interestRate && (
+                <span className="form-error">
+                  {errors.interestRate.message}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="flex flex-col ">
@@ -180,8 +185,10 @@ function App() {
               Mortgage Type
             </label>
 
-            <label htmlFor="repayment" className="option-label mb-[10px] relative">
-              
+            <label
+              htmlFor="repayment"
+              className="option-label mb-[10px] relative"
+            >
               <input
                 type="radio"
                 id="repayment"
@@ -205,7 +212,7 @@ function App() {
 
           <button
             type="submit"
-            className="bg-lime transition-all hover:bg-lime/80 rounded-full text-slate-900 flex justify-center items-center gap-[10px] py-3 px-6 font-bold min-w-11"
+            className="mt-5 bg-lime transition-all hover:bg-lime/80 rounded-full flex justify-center items-center gap-[10px] py-4 px-6 font-bold min-w-11"
           >
             <img src={calculatorIcon} alt="" />
             Calculate Repayments
