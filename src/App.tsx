@@ -196,22 +196,34 @@ function App() {
       </div>
 
       {/* Result */}
-      <div className=" basis-1/2 bg-slate-900 md:rounded-r-3xl md:rounded-bl-[70px] p-11 flex justify-center items-center text-center">
+      <div className=" basis-1/2 bg-slate-900 md:rounded-r-3xl md:rounded-bl-[70px] p-11 flex justify-center ">
         {results.monthlyPayment !== 0 && results.totalPayment !== 0 ? (
           <div className="text-white">
-            <h2>Your results </h2>
-            <p className="text-slate-500">
+            <h2 className="text-fluid-xl font-bold mb-5">Your results </h2>
+            <p className="text-slate-500 mb-10">
               Your results are shown below based on the information you
               provided.To adjust the results, edit the form and click “calculate
               repayments” again.
             </p>
-            <div className="bg-['#0d1b24'] p-7 border-t-[3px] border-lime rounded-xl">
-              monthlyPayment: {results["monthlyPayment"]}
-              totalPayment: {results["totalPayment"]}
+            <div className="bg-[#0d1b24] p-7 border-t-[3px] border-lime rounded-xl">
+              <div className="border-b border-slate-500 mb-7 ">
+                <div className="text-slate-500 mb-5 text-fluid-base">
+                  Your monthly repayments
+                </div>
+                <div className="text-lime pb-7 text-fluid-4xl font-bold">
+                  £ {results["monthlyPayment"]}
+                </div>
+              </div>
+              <div>
+                <div className="text-slate-500 mb-4 text-fluid-base">
+                  Total you'll repay over the term
+                </div>
+                <div className="text-white font-bold text-fluid-xl">{results["totalPayment"]}</div>
+              </div>
             </div>
           </div>
         ) : (
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center text-center">
             <img src={emptyIllustration} />
             <h2 className="text-white my-5 text-fluid-xl font-bold">
               Results shown here
