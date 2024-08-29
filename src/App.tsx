@@ -17,24 +17,26 @@ type FormValues = {
 let schema = yup.object().shape({
   mortgageAmount: yup
     .number()
+    .transform((value, originalValue) => (originalValue === "" ? undefined : value)) // Convert empty string to undefined
     .typeError("Must be a number")
     .positive()
-    .required("Mortgage amount is required"),
+    .required("Required"),
   mortgageTerm: yup
     .number()
+    .transform((value, originalValue) => (originalValue === "" ? undefined : value))
     .typeError("Must be a number")
     .positive()
-    .integer("Mortgage term must be an integer")
-    .required("Mortgage term is required"),
+    .required("Required"),
   interestRate: yup
     .number()
+    .transform((value, originalValue) => (originalValue === "" ? undefined : value))
     .typeError("Must be a number")
     .positive()
-    .required("Interest rate is required"),
+    .required("Required"),
   mortgageType: yup
     .string()
     .oneOf(["repayment", "interestOnly"])
-    .required("Mortgage type is required"),
+    .required("Required"),
 });
 
 const calculateMortgage = (data: FormValues) => {
@@ -84,9 +86,10 @@ function App() {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
-    defaultValues: {
-      mortgageType: "repayment",
-    },
+    mode: "onChange",
+    // defaultValues: {
+    //   mortgageType: "repayment",
+    // },
   });
 
   const [results, setResults] = useState({
@@ -120,7 +123,7 @@ function App() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col w-full "
+          className="flex flex-col w-full gap-[10px]"
         >
           <div
             className={`input-wrapper before:left-[1px] before:rounded-l before:content-['£'] ${
@@ -147,7 +150,7 @@ function App() {
 
           <div className="flex justify-between gap-5">
             <div
-              className={`input-wrapper before:right-[1px] before:rounded-r before:content-['years'] before:px-3 ${
+              className={`basis-1/2 input-wrapper before:right-[1px] before:rounded-r before:content-['years'] before:px-3 ${
                 errors.mortgageTerm && "before:input-wrapper-before-error"
               } `}
             >
@@ -170,7 +173,7 @@ function App() {
             </div>
 
             <div
-              className={`input-wrapper before:right-[1px] before:rounded-r before:content-['%'] ${
+              className={`basis-1/2 input-wrapper before:right-[1px] before:rounded-r before:content-['%'] ${
                 errors.interestRate && "before:input-wrapper-before-error"
               } `}
             >

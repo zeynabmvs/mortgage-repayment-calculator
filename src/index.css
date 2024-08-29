@@ -41,7 +41,7 @@ input[type="number"] {
   }
 
   .form-error {
-    @apply text-red text-fluid-xs block h-5 mb-[10px];
+    @apply text-red text-fluid-xs block h-5 ;
   }
 
   .input-wrapper-before-error {
