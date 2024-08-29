@@ -175,14 +175,32 @@ function App() {
             )}
           </div>
 
-          <div>
+          <div className="flex flex-col ">
             <label htmlFor="mortgageType" className="form-label">
               Mortgage Type
             </label>
-            <select {...register("mortgageType")}>
-              <option value="repayment">Repayment</option>
-              <option value="interestOnly">Interest Only</option>
-            </select>
+
+            <label htmlFor="repayment" className="option-label mb-[10px] relative">
+              
+              <input
+                type="radio"
+                id="repayment"
+                value="repayment"
+                {...register("mortgageType", { required: true })}
+                className="form-radio"
+              />
+              Repayment
+            </label>
+            <label htmlFor="interestOnly" className="option-label">
+              <input
+                type="radio"
+                id="interestOnly"
+                value="interestOnly"
+                {...register("mortgageType", { required: true })}
+                className="form-radio"
+              />
+              Interest Only
+            </label>
           </div>
 
           <button
@@ -218,7 +236,9 @@ function App() {
                 <div className="text-slate-500 mb-4 text-fluid-base">
                   Total you'll repay over the term
                 </div>
-                <div className="text-white font-bold text-fluid-xl">{results["totalPayment"]}</div>
+                <div className="text-white font-bold text-fluid-xl">
+                  {results["totalPayment"]}
+                </div>
               </div>
             </div>
           </div>
