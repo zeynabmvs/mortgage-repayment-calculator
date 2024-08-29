@@ -2,3 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide the number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+
+
+@layer components {
+  .form-input {
+    @apply relative border border-slate-300 rounded p-[14px] pl-14 w-full transition-all outline-offset-0 text-xs;
+  }
+  .form-label {
+    @apply block text-slate-500 text-fluid-sm mb-3
+  }
+}
