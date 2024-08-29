@@ -19,7 +19,8 @@ input[type="number"] {
   }
 
   .form-input {
-    @apply border border-slate-300 rounded p-[14px] w-full transition-all outline-offset-0 text-sm hover:border-lime;
+    @apply border border-slate-300 rounded p-[14px] w-full transition-all outline-offset-0 text-sm hover:border-lime
+    focus:outline-none focus:border-slate-700 focus:ring-1 focus:ring-slate-700;
   }
 
   .form-label {

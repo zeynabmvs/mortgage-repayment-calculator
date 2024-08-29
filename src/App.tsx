@@ -38,7 +38,6 @@ let schema = yup.object().shape({
 });
 
 const calculateMortgage = (data: FormValues) => {
-  console.log(data);
   const { mortgageAmount, mortgageTerm, interestRate, mortgageType } = data;
   const principal = mortgageAmount;
   const annualInterestRate = interestRate / 100;
@@ -96,7 +95,6 @@ function App() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
     const { monthlyPayment, totalPayment } = calculateMortgage(data);
     setResults({ ...results, monthlyPayment, totalPayment });
   };
