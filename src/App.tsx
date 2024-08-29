@@ -81,7 +81,6 @@ function App() {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm<FormValues>({
