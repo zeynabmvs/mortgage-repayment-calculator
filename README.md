@@ -11,4 +11,4 @@
 - [Vite](https://vitejs.dev/)
 
 Github repo: https://github.com/zeynabmvs/mortgage-repayment-calculator
-Live preview: 
+Live preview: https://mortgage-repayment-calculator-gilt.vercel.app/
