@@ -4,32 +4,32 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useState } from "react";
-
-// Define the shape of the form data
-type FormValues = {
-  mortgageAmount: number;
-  mortgageTerm: number;
-  interestRate: number;
-  mortgageType: "repayment" | "interestOnly";
-};
+import { FormValues } from "./definitions";
+import { calculateMortgage } from "./helper";
 
 // Define the validation schema
 let schema = yup.object().shape({
   mortgageAmount: yup
     .number()
-    .transform((value, originalValue) => (originalValue === "" ? undefined : value)) // Convert empty string to undefined
+    .transform((value, originalValue) =>
+      originalValue === "" ? undefined : value
+    ) // Convert empty string to undefined
     .typeError("Must be a number")
     .positive()
     .required("Required"),
   mortgageTerm: yup
     .number()
-    .transform((value, originalValue) => (originalValue === "" ? undefined : value))
+    .transform((value, originalValue) =>
+      originalValue === "" ? undefined : value
+    )
     .typeError("Must be a number")
     .positive()
     .required("Required"),
   interestRate: yup
     .number()
-    .transform((value, originalValue) => (originalValue === "" ? undefined : value))
+    .transform((value, originalValue) =>
+      originalValue === "" ? undefined : value
+    )
     .typeError("Must be a number")
     .positive()
     .required("Required"),
@@ -38,44 +38,6 @@ let schema = yup.object().shape({
     .oneOf(["repayment", "interestOnly"])
     .required("Required"),
 });
-
-const calculateMortgage = (data: FormValues) => {
-  const { mortgageAmount, mortgageTerm, interestRate, mortgageType } = data;
-  const principal = mortgageAmount;
-  const annualInterestRate = interestRate / 100;
-  const numberOfPayments = mortgageTerm * 12;
-
-  if (
-    isNaN(principal) ||
-    isNaN(annualInterestRate) ||
-    isNaN(numberOfPayments) ||
-    numberOfPayments === 0
-  ) {
-    return {
-      monthlyPayment: 0,
-      totalPayment: 0,
-    };
-  }
-
-  const monthlyInterestRate = annualInterestRate / 12;
-  let monthlyPayment;
-
-  if (mortgageType === "repayment") {
-    monthlyPayment =
-      (principal *
-        monthlyInterestRate *
-        Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
-      (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
-  } else {
-    monthlyPayment = principal * monthlyInterestRate;
-  }
-
-  const totalPayment = monthlyPayment * numberOfPayments;
-  return {
-    monthlyPayment: parseFloat(monthlyPayment.toFixed(2)),
-    totalPayment: parseFloat(totalPayment.toFixed(2)),
-  };
-};
 
 function App() {
   const {
@@ -124,6 +86,7 @@ function App() {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col w-full gap-[10px]"
         >
+          {/* Field 1: Mortgage Amount */}
           <div
             className={`input-wrapper before:left-[1px] before:rounded-l before:content-['£'] ${
               errors.mortgageAmount && "before:input-wrapper-before-error"
@@ -134,7 +97,8 @@ function App() {
             </label>
             <input
               id="mortgageAmount"
-              type="float"
+              type="number"
+              step="0.01"
               {...register("mortgageAmount")}
               className={` ${
                 errors.mortgageAmount &&
@@ -148,6 +112,7 @@ function App() {
           </div>
 
           <div className="flex justify-between gap-5">
+            {/* Field 2: Mortgage Term */}
             <div
               className={`basis-1/2 input-wrapper before:right-[1px] before:rounded-r before:content-['years'] before:px-3 ${
                 errors.mortgageTerm && "before:input-wrapper-before-error"
@@ -159,6 +124,7 @@ function App() {
               <input
                 id="mortgageTerm"
                 type="number"
+                step="0.01"
                 {...register("mortgageTerm")}
                 className={` ${
                   errors.mortgageTerm &&
@@ -171,6 +137,7 @@ function App() {
               </span>
             </div>
 
+            {/* Field 3: Interest Rate */}
             <div
               className={`basis-1/2 input-wrapper before:right-[1px] before:rounded-r before:content-['%'] ${
                 errors.interestRate && "before:input-wrapper-before-error"
@@ -181,7 +148,8 @@ function App() {
               </label>
               <input
                 id="interestRate"
-                type="float"
+                type="number"
+                step="0.01"
                 {...register("interestRate")}
                 className={` ${
                   errors.interestRate &&
@@ -195,8 +163,9 @@ function App() {
             </div>
           </div>
 
+          {/* Field 4: Mortgage Type */}
           <div className="flex flex-col ">
-            <label htmlFor="mortgageType" className="form-label">
+            <label className="form-label">
               Mortgage Type
             </label>
 
@@ -208,7 +177,7 @@ function App() {
                 type="radio"
                 id="repayment"
                 value="repayment"
-                {...register("mortgageType", { required: true })}
+                {...register("mortgageType")}
                 className="form-radio"
               />
               <span className="font-bold">Repayment</span>
@@ -218,11 +187,10 @@ function App() {
                 type="radio"
                 id="interestOnly"
                 value="interestOnly"
-                {...register("mortgageType", { required: true })}
+                {...register("mortgageType")}
                 className="form-radio"
               />
               <span className="font-bold">Interest Only</span>
-              {/* Interest Only */}
             </label>
 
             <span className="form-error">
@@ -270,6 +238,7 @@ function App() {
             </div>
           </div>
         ) : (
+          // No result state
           <div className="flex flex-col justify-center items-center text-center">
             <img src={emptyIllustration} alt="" />
             <h2 className="text-white my-5 text-fluid-xl font-bold">
