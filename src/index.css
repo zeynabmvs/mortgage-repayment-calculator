@@ -28,7 +28,7 @@ input[type="number"] {
   }
 
   .option-label {
-    @apply text-base border border-slate-300 p-3 flex items-center gap-5 transition-all text-slate-700 font-bold rounded has-[:checked]:bg-lime/30 has-[:checked]:border-lime hover:border-lime
+    @apply text-base border border-slate-300 p-3 flex items-center gap-5 transition-all  rounded has-[:checked]:bg-lime/30 has-[:checked]:border-lime hover:border-lime
     focus-within:outline focus-within:outline-2 focus-within:outline-slate-700;
   }
 
@@ -38,7 +38,7 @@ input[type="number"] {
   }
 
   .input-wrapper::before {
-    @apply absolute bg-slate-100 min-w-[44px] h-[48px] top-[35px] bottom-0 text-base text-slate-700 flex justify-center items-center;
+    @apply absolute bg-slate-100 min-w-[44px] h-[48px] top-[35px] bottom-0 text-base text-slate-700 flex justify-center items-center font-bold;
   }
 
   .form-error {
@@ -48,8 +48,4 @@ input[type="number"] {
   .input-wrapper-before-error {
     @apply bg-red text-white;
   }
-}
-
-label:has(input[type="radio"]):focus {
-  outline: auto;
 }

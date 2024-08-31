@@ -114,7 +114,7 @@ function App() {
           <h1 className="font-bold text-fluid-xl">Mortgage Calculator</h1>
           <button
             onClick={() => clearForm()}
-            className="text-slate-500 hover:text-slate-700 transition-colors underline underline-offset-1 text-fluid-sm"
+            className="text-slate-500 hover:text-slate-700 transition-colors underline underline-offset-2 text-fluid-sm"
           >
             Clear all
           </button>
@@ -211,7 +211,7 @@ function App() {
                 {...register("mortgageType", { required: true })}
                 className="form-radio"
               />
-              Repayment
+              <span className="font-bold">Repayment</span>
             </label>
             <label htmlFor="interestOnly" className="option-label">
               <input
@@ -221,7 +221,8 @@ function App() {
                 {...register("mortgageType", { required: true })}
                 className="form-radio"
               />
-              Interest Only
+              <span className="font-bold">Interest Only</span>
+              {/* Interest Only */}
             </label>
 
             <span className="form-error">
