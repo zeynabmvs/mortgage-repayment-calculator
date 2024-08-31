@@ -107,7 +107,7 @@ function App() {
   };
 
   return (
-    <div className="w-full lg:w-[1000px] bg-white md:rounded-3xl h-full md:h-[580px] flex flex-col md:flex-row">
+    <main className="w-full lg:w-[1000px] bg-white md:rounded-3xl h-full md:h-[580px] flex flex-col md:flex-row">
       {/* Calculator */}
       <div className="basis-1/2 flex flex-col px-5 py-7 md:p-11 items-start">
         <div className="w-full flex justify-between mb-8">
@@ -270,7 +270,7 @@ function App() {
           </div>
         ) : (
           <div className="flex flex-col justify-center items-center text-center">
-            <img src={emptyIllustration} />
+            <img src={emptyIllustration} alt="" />
             <h2 className="text-white my-5 text-fluid-xl font-bold">
               Results shown here
             </h2>
@@ -281,7 +281,7 @@ function App() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }
 
