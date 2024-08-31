@@ -28,7 +28,8 @@ input[type="number"] {
   }
 
   .option-label {
-    @apply text-base border border-slate-300 p-3 flex items-center gap-5 transition-all text-slate-700 font-bold rounded has-[:checked]:bg-lime/30 has-[:checked]:border-lime hover:border-lime;
+    @apply text-base border border-slate-300 p-3 flex items-center gap-5 transition-all text-slate-700 font-bold rounded has-[:checked]:bg-lime/30 has-[:checked]:border-lime hover:border-lime
+    focus-within:outline focus-within:outline-2 focus-within:outline-slate-700;
   }
 
   .form-radio {
@@ -47,4 +48,8 @@ input[type="number"] {
   .input-wrapper-before-error {
     @apply bg-red text-white;
   }
+}
+
+label:has(input[type="radio"]):focus {
+  outline: auto;
 }
